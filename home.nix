@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
-
+# let
+#   toHomeFiles = dir:
+#     pkgs.lib.mapAttrs
+#       (name: _: { source = "${dir}/${name}"; }) 
+#         (pkgs.lib.attrsets.filterAttrs
+#           (name: type: type == "regular")
+#           (builtins.readDir dir))
+#   ;
+# in 
 {
   home.username = "oliver";
   home.homeDirectory = "/home/oliver";
@@ -32,6 +40,7 @@
     # command line stuff
     oh-my-zsh
     zsh-powerlevel10k
+    zsh-fzf-history-search
     nerdfonts
     kitty
     kitty-themes
@@ -81,22 +90,17 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    ".p10k.zsh".source = dotfiles/p10k.zsh;
-    # ".screenrc".source = ../../p10k.zsh;
+  # home.file = toHomeFiles ./dotfiles;
+  home.file =
+        with pkgs; let
+        listFilesRecursive = dir: acc: lib.flatten (lib.mapAttrsToList
+          (k: v: if v == "regular" then ["${acc}${k}"] else listFilesRecursive dir "${acc}${k}/")
+          (builtins.readDir "${dir}/${acc}"));
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-    ".fdignore".text = ''
-      /go
-    '';
-  };
+        toHomeFiles = dir:
+          builtins.listToAttrs
+            (map (x: { name = x; value = { source = "${dir}/${x}"; }; }) (listFilesRecursive dir ""));
+      in toHomeFiles ./dotfiles;
   
   # git setup
   programs.git = {
@@ -109,6 +113,7 @@
       cm = "commit -m";
     };
     extraConfig = {
+      init.defaultBranch = "main";
       push = { autoSetupRemote = true; };
     };
   };
@@ -125,9 +130,15 @@
     ];
   };
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # zsh setup
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
     syntaxHighlighting.enable = true;
     initExtra = ''
       source ~/.p10k.zsh
@@ -139,12 +150,22 @@
         src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
         file = "powerlevel10k.zsh-theme";
       }
+      {
+        name = "zsh-fzf-history-search";
+        src = "${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search";
+      }
     ];
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
     };
     shellAliases = {
+      lt="lsd --tree --depth 2";
+      ls="lsd";
+      lsa="lsd -a";
+      ll="lsd -la";
+      sd="cd ~ && cd $(fd -t d | fzf)";
+      sv="source venv/bin/activate";
     };
   };
 
@@ -166,12 +187,13 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    FZF_DEFAULT_COMMAND = "fd";
   };
 
   # themes
-  gtk.enable = true;
-  gtk.cursorTheme.package = pkgs.bibata-cursors;
-  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+  # gtk.enable = true;
+  # gtk.cursorTheme.package = pkgs.bibata-cursors;
+  # gtk.cursorTheme.name = "Bibata-Modern-Ice";
   
   # gtk.theme.package = pkgs.gruvbox-gtk-theme;
   # gtk.theme.name = "Gruvbox-Dark-hdpi-B-MB";
