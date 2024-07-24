@@ -1,0 +1,16 @@
+font_size 16.0
+tab_bar_edge bottom
+
+tab_bar_min_tabs            1
+tab_bar_edge                bottom
+tab_bar_style               powerline
+tab_powerline_style         slanted
+
+tab_title_max_length 0
+tab_title_template "{index}: {tab.active_wd.split('/')[-1] if tab.active_exe == '-zsh' else tab.active_exe}"
+background_opacity 0.9
+background_blur 32
+
+macos_option_as_alt yes
+map ctrl+alt+l next_tab
+map ctrl+alt+h previous_tab
