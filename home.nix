@@ -85,7 +85,7 @@
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
-    ".p10k.zsh".source = ./p10k.zsh;
+    ".p10k.zsh".source = dotfiles/p10k.zsh;
     # ".screenrc".source = ../../p10k.zsh;
 
     # # You can also set the file content immediately.
