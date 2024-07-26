@@ -1,13 +1,5 @@
 { config, pkgs, ... }:
-# let
-#   toHomeFiles = dir:
-#     pkgs.lib.mapAttrs
-#       (name: _: { source = "${dir}/${name}"; }) 
-#         (pkgs.lib.attrsets.filterAttrs
-#           (name: type: type == "regular")
-#           (builtins.readDir dir))
-#   ;
-# in 
+
 {
   home.username = "oliver";
   home.homeDirectory = "/home/oliver";
@@ -60,6 +52,7 @@
     killall
     nixos-generators
     lsd
+    bat
 
     # coding
     go
@@ -166,6 +159,9 @@
       ll="lsd -la";
       sd="cd ~ && cd $(fd -t d | fzf)";
       sv="source venv/bin/activate";
+      cat="bat";
+      hs="home-manager switch --flake ~/nixos";
+      speaker="bluetoothctl connect 95:66:04:F6:8D:BC";
     };
   };
 
