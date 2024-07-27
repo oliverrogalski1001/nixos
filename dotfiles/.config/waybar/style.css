@@ -102,17 +102,15 @@ button:hover {
 
 #custom-powermenu {
   padding-top: 0px;
-  margin-left: 4px;
-  padding-right: 4px;
+  margin-left: 6px;
+  /* padding-left: 6px; */
+  /* padding-right: 4px; */
   /* margin-right: -3px; */
   border-radius: 10px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
-.modules-left > widget:first-child > #custom-powermenu {
     margin-left: 0;
 }
 

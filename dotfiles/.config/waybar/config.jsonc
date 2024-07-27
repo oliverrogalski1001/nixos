@@ -7,7 +7,6 @@
   // Choose the order of the modules
   "margin": 5,
   "modules-left": [
-    "custom/powermenu",
     "hyprland/workspaces"
   ],
   "modules-center": [
