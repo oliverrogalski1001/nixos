@@ -71,6 +71,7 @@
     playerctl
     blueman
     bluez
+    nwg-look
 
     # screenshots
     grim
@@ -187,7 +188,13 @@
   };
 
   # themes
-  # gtk.enable = true;
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.gruvbox-gtk-theme;
+      name = "Gruvbox-Dark-hdpi-B-MB";
+    };
+  };
   # gtk.cursorTheme.package = pkgs.bibata-cursors;
   # gtk.cursorTheme.name = "Bibata-Modern-Ice";
   
