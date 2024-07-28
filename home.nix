@@ -28,6 +28,7 @@
     vesktop
     zathura
     mpv
+    upscayl
 
     # command line stuff
     oh-my-zsh
