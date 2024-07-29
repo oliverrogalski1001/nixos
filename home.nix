@@ -62,7 +62,7 @@
     mysql80
     cargo
 
-    # hyprland
+    # wayland
     waybar
     dunst
     libnotify
@@ -81,6 +81,9 @@
     wl-clipboard
     imagemagick
 
+    # networking
+    openconnect
+    networkmanagerapplet
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
