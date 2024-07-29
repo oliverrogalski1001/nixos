@@ -3,6 +3,8 @@
 
 configuration {
     hover-select: true;
+    show-icons: true;
+    icon-theme: "Papirus";
     me-select-entry: "";
     me-accept-entry: [ MousePrimary ];
 }

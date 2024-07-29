@@ -162,7 +162,7 @@
       sd="cd ~ && cd $(fd -t d | fzf)";
       sv="source venv/bin/activate";
       cat="bat";
-      hs="home-manager switch --flake ~/nixos";
+      hs="home-manager switch --flake ~/nixos && hyprctl reload";
       speaker="bluetoothctl connect 95:66:04:F6:8D:BC";
     };
   };
