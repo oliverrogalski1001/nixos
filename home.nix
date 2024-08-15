@@ -29,6 +29,8 @@
     zathura
     mpv
     upscayl
+    xfce.thunar
+    ungoogled-chromium
 
     # command line stuff
     oh-my-zsh
@@ -62,6 +64,9 @@
     mysql80
     cargo
 
+    # latex
+    texlive.combined.scheme-full
+
     # wayland
     waybar
     dunst
@@ -84,6 +89,12 @@
     # networking
     openconnect
     networkmanagerapplet
+
+    # webcam
+    v4l-utils
+
+    # games
+    extremetuxracer
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

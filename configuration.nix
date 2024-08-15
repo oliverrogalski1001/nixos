@@ -31,7 +31,7 @@
   };
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -107,7 +107,7 @@
   users.users.oliver = {
     isNormalUser = true;
     description = "Oliver Rogalski";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       zsh
     ];
@@ -155,6 +155,12 @@
   #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   #   localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   # };
+ 
+  # create swap
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024; # 16GB
+  }];
 
 
   # hyprland stuff
@@ -164,6 +170,9 @@
   };
   # xgd.portal.enable = true;
   # xgd.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+ 
+  # docker
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -179,6 +188,7 @@
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.onedrive.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
